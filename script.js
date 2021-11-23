@@ -1,6 +1,8 @@
 
 const main_page = document.querySelector('.main')
 
+
+
 let contactList = [
     {
       name: "Roberta Dobbs",
@@ -17,28 +19,51 @@ let contactList = [
   ]
 
 function cleanUpIndex() {
-    const Contacts = document.querySelectorAll('.contact')
+    const Contacts = document.querySelectorAll('.contact') /* Creates a list of all divs with the class "contact" */
     Contacts.forEach(element => {
         element.remove()
     });
 }
 
-function renderIndex(contact_list) {
+function createSingleIndex(c_object) {
 
-    contact_list.forEach((element, i) => {
-        const p = document.createElement('p')
+    /* const link_element = document.createElement('a')   Future code for automatically linking the created contact page*/
+    const p_element = document.createElement('p')
+    const contact_card = document.createElement('div')
+    contact_card.classList.add('contact')
+
+    for(item in c_object) {
+        if (item == 'name') {
+            contact_name = c_object.name
+        }
+    }
+    name_card = document.createTextNode(contact_name)
+    p_element.appendChild(name_card)
+    contact_card.appendChild(p_element)
+    /* link_element.appendChild(contact_card)   Future code for automatically linking the created contact page*/
+    main_page.appendChild(contact_card)
+} 
+
+function renderIndex(c_list) {
+
+    /* Loop for each object in the list */
+    c_list.forEach((element, i) => {
+
+        /* const link_element = document.createElement('a')   Future code for automatically linking the created contact page*/
+        const p_element = document.createElement('p')
         const contact_card = document.createElement('div')
         contact_card.classList.add('contact')
-        
-        /* Looks specifically for the name inside each object */
+
+        /* Loop looks specifically for the name inside each object, so the order won't matter*/
         for(item in element) {
             if (item == 'name') {
                 contact_name = element.name 
             }
         }    
         name_card = document.createTextNode(contact_name)
-        p.appendChild(name_card)
-        contact_card.appendChild(p)
+        p_element.appendChild(name_card)
+        contact_card.appendChild(p_element)
+        /* link_element.appendChild(contact_card)   Future code for automatically linking the created contact page*/
         main_page.appendChild(contact_card)
     })
 }
