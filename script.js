@@ -16,14 +16,15 @@ let contactList = [
     }
   ];
 
-
+//Function 1
 function cleanUpIndex() {
-        while (main_div.lastChild) {
-        main_div.lastChild.remove();
-    };
-};
+    Contacts = document.querySelectorAll('.contact')
+    Contacts.forEach(element => {
+        element.remove()
+    });
+}
 
-
+//Function 2
 function createSingleIndex(c_object) {
 
     /* Assigning the necessary elements */
@@ -41,7 +42,7 @@ function createSingleIndex(c_object) {
     main_div.appendChild(link_element);
 } 
 
-
+//Function 3
 function renderIndex(c_list) {
 
     /* Loop for each object in the list */
@@ -50,7 +51,7 @@ function renderIndex(c_list) {
     });
 };
 
-
+//Function 4
 function cleanUpView() {    //Removes all the children, and then the parent
     contact_div = document.querySelector('.contactinfo')
     while (contact_div.lastChild) {
@@ -59,7 +60,7 @@ function cleanUpView() {    //Removes all the children, and then the parent
     contact_div.remove();
 };
 
-
+//Function 5
 function renderView(c_object) {
     
     const contactclasses = ['contactname','contactemail','contactphone','contactaddress', 'buttons'];
@@ -116,3 +117,90 @@ function renderView(c_object) {
         profile_img.setAttribute(e, img[e])
         name_div.appendChild(profile_img)
 };
+
+//Function 6
+function cleanUpCreate() {
+    create_div = document.querySelector('.contactedit')
+    while (create_div.lastChild) {
+        create_div.lastChild.remove()
+    };
+    create_div.remove();
+}
+
+//Function 7
+function renderCreate() {
+     
+    const contactedit_children = ['contactimg', 'form']
+
+    edit_div = document.createElement('div')
+    edit_div.classList.add('contactedit')
+    main_div.appendChild(edit_div)
+
+    contactedit_children.forEach((e, i) => {
+        e = document.createElement('div');
+        e.classList.add(contactedit_children[i]);
+        console.log(e)
+        edit_div.appendChild(e);
+    });
+
+    const img = {src: './img/profile.jpg', class: 'profilepic', alt: 'Profile picture'}
+
+    contactimg = document.querySelector('.contactimg')
+    profile_img = document.createElement('img')
+    for (e in img)
+        profile_img.setAttribute(e, img[e])
+        contactimg.appendChild(profile_img)
+
+    form_div = document.querySelector('.form')
+    form = document.createElement('form')
+    form_div.appendChild(form)
+
+    inco1 = document.createElement('div')
+    inco1.classList.add()
+
+    for(var i=0; i<4; i++) {
+        input = document.createElement('div')
+        input.classList.add('inputcontainer')
+        form.appendChild(input)
+    }
+
+    buttons = document.createElement('div')
+    buttons.classList.add('buttons')
+    form.appendChild(buttons)
+
+    const containers = form.childNodes;
+    const input_list = [{type: 'text', id: 'contactname', name: 'contactname', placeholder: 'Contact Name'}, {type: 'tel', id: 'contactphone', name: 'contactphone', placeholder: 'Contact Phone'}, {type: 'text', id: 'contactaddress', name: 'contactaddress', placeholder: 'Contact Address'}, {type: 'email', id: 'contactemail', name: 'contactemail', placeholder: 'Contact Email'}]
+    const buttons_list = [{class: 'extrafield', id: 'extranamefield', name: 'extranamefield'}, {class: 'extrafield', id: 'extraphonefield', name: 'extraphonefield'}, {class: 'extrafield', id: 'extraaddressfield', name: 'extraaddressfield'}, {class: 'extrafield', id: 'extraemailfield', name: 'extraemailfield'}]
+    const other_buttons_list = [{type: 'submit', class: 'button save', id: 'savecontact', name: 'savecontact'}, {type: 'reset', class: 'button cancel', id: 'cancel', name: 'cancel'}]
+    const button_label = ['Save Contact', 'Cancel']
+
+    var increasing = 0
+    input_list.forEach((x) => {
+        inputt = document.createElement('input')
+        for (e in x)
+            inputt.setAttribute(e, x[e])
+        containers[increasing].appendChild(inputt)
+        increasing++
+    });
+
+    var increase = 0
+    buttons_list.forEach((x) => {
+        button = document.createElement('button')
+        for (e in x)
+            button.setAttribute(e, x[e])
+            button.innerHTML = '+'
+        containers[increase].appendChild(button)
+        increase++
+    });
+
+    var increased = 0
+    other_buttons_list.forEach((x) => {
+        button = document.createElement('button')
+        for (e in x)
+            button.setAttribute(e, x[e])
+            button.innerHTML = button_label[increased]
+            increased++
+        buttons.appendChild(button)
+    });
+};
+
