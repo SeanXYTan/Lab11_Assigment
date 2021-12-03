@@ -3,6 +3,7 @@ const main_div = document.querySelector('.main')
 const contacts_home_id = document.querySelector('#contactshome')
 const new_contacts_id = document.querySelector('#newcontact')
 
+//Lab 11 Task 1
 let contactList = [
     {
       name: "Roberta Dobbs",
@@ -18,14 +19,27 @@ let contactList = [
     }
   ];
 
-//Function 1
+
 function cleanUpIndex() {
     while (main_div.lastChild) {
         main_div.lastChild.remove()
     };
 }
 
-//Function 2
+//Lab 11 Task 2
+contacts_home_id.addEventListener('click', (e) => {
+    cleanUpIndex();
+    renderIndex(contactList)
+    e.preventDefault();
+});
+
+//Lab 11 Task 3
+new_contacts_id.addEventListener('click', (e) => {
+    cleanUpIndex();
+    renderCreate();
+    e.preventDefault();
+})
+
 function createSingleIndex(c_object) {
 
     /* Assigning the necessary elements */
@@ -51,7 +65,7 @@ function createSingleIndex(c_object) {
     });
 }; 
 
-//Function 3
+
 function renderIndex(c_list) {
 
     /* Loop for each object in the list */
@@ -60,17 +74,16 @@ function renderIndex(c_list) {
     });
 };
 
-//Function 4
+
 function cleanUpView() {    //Removes all the children, and then the parent
         contact_div = document.querySelector('.contactinfo')
         while (contact_div.lastChild) {
             contact_div.lastChild.remove()
         };
         contact_div.remove();
-        
 };
 
-//Function 5
+
 function renderView(c_object) {
     
     const contactclasses = ['contactname','contactemail','contactphone','contactaddress', 'buttons'];
@@ -128,6 +141,11 @@ function renderView(c_object) {
         e.preventDefault();
     })
 
+    //Lab 11 Task 6
+    document.querySelector('.edit').addEventListener('click', (e) => {
+        e.preventDefault();
+    });
+
     name_div = document.querySelector('.contactname')
     profile_img = document.createElement('img')
     for (e in img)
@@ -135,7 +153,7 @@ function renderView(c_object) {
         name_div.appendChild(profile_img)
 };
 
-//Function 6
+
 function cleanUpCreate() {
     create_div = document.querySelector('.contactedit')
     while (create_div.lastChild) {
@@ -144,7 +162,7 @@ function cleanUpCreate() {
     create_div.remove();
 }
 
-//Function 7
+
 function renderCreate() {
      
     const contactedit_children = ['contactimg', 'form']
@@ -244,20 +262,6 @@ function renderCreate() {
         e.preventDefault();
     })
 };
-
-//Lab 11 Task 2
-contacts_home_id.addEventListener('click', (e) => {
-    cleanUpIndex();
-    renderIndex(contactList)
-    e.preventDefault();
-});
-
-//Lab 11 Task 3
-new_contacts_id.addEventListener('click', (e) => {
-    cleanUpIndex();
-    renderCreate();
-    e.preventDefault();
-})
 
 //Lab 11 Task 10
 window.addEventListener('load', (e) => {
