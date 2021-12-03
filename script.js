@@ -54,7 +54,6 @@ function createSingleIndex(c_object) {
     p_element.appendChild(name_card);
     contact_card.appendChild(p_element);
     link_element.appendChild(contact_card);
-    main_div.appendChild(link_element);
 
     //Lab 11 Task 4
     contact_card.addEventListener('click', (e) => {
@@ -63,6 +62,8 @@ function createSingleIndex(c_object) {
             renderView(c_object)
             e.preventDefault()
     });
+
+    return link_element
 }; 
 
 
@@ -70,7 +71,8 @@ function renderIndex(c_list) {
 
     /* Loop for each object in the list */
     c_list.forEach((element) => {
-        createSingleIndex(element)
+        child = createSingleIndex(element)
+        main_div.appendChild(child)
     });
 };
 
@@ -246,15 +248,11 @@ function renderCreate() {
 
     //Lab 11 Task 8 & 9
     document.querySelector('.save').addEventListener('click', (e) => {
-        const c_name = document.querySelector('#contactname')
-        const c_email = document.querySelector('#contactemail')
-        const c_phone = document.querySelector('#contactphone')
-        const c_address = document.querySelector('#contactaddress')
         let new_object = {
-            name: c_name.value,
-            email: c_email.value,
-            phone: c_phone.value,
-            address: c_address.value,
+            name: document.querySelector('#contactname').value,
+            email: document.querySelector('#contactemail').value,
+            phone: document.querySelector('#contactphone').value,
+            address: document.querySelector('#contactaddress').value,
         }
         contactList.push(new_object);
         cleanUpIndex();
@@ -268,9 +266,3 @@ window.addEventListener('load', (e) => {
     cleanUpIndex();
     renderIndex(contactList)
 })
-
-
-
-
-
-
