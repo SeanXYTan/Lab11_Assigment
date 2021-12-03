@@ -1,5 +1,7 @@
 
 const main_div = document.querySelector('.main')
+const contacts_home_id = document.querySelector('#contactshome')
+const new_contacts_id = document.querySelector('#newcontact')
 
 let contactList = [
     {
@@ -18,10 +20,9 @@ let contactList = [
 
 //Function 1
 function cleanUpIndex() {
-    Contacts = document.querySelectorAll('.contact')
-    Contacts.forEach(element => {
-        element.remove()
-    });
+    while (main_div.lastChild) {
+        main_div.lastChild.remove()
+    };
 }
 
 //Function 2
@@ -40,7 +41,15 @@ function createSingleIndex(c_object) {
     contact_card.appendChild(p_element);
     link_element.appendChild(contact_card);
     main_div.appendChild(link_element);
-} 
+
+    //Lab 11 Task 4
+    contact_card.addEventListener('click', (e) => {
+        if (name_card == c_object.name) { return false; }
+            cleanUpIndex()
+            renderView(c_object)
+            e.preventDefault()
+    });
+}; 
 
 //Function 3
 function renderIndex(c_list) {
@@ -53,11 +62,12 @@ function renderIndex(c_list) {
 
 //Function 4
 function cleanUpView() {    //Removes all the children, and then the parent
-    contact_div = document.querySelector('.contactinfo')
-    while (contact_div.lastChild) {
-        contact_div.lastChild.remove()
-    };
-    contact_div.remove();
+        contact_div = document.querySelector('.contactinfo')
+        while (contact_div.lastChild) {
+            contact_div.lastChild.remove()
+        };
+        contact_div.remove();
+        
 };
 
 //Function 5
@@ -111,6 +121,13 @@ function renderView(c_object) {
             button_div.appendChild(button)
     })
 
+    //Lab 11 Task 5
+    document.querySelector('.close').addEventListener('click', (e) => {
+        cleanUpIndex();
+        renderIndex(contactList);
+        e.preventDefault();
+    })
+
     name_div = document.querySelector('.contactname')
     profile_img = document.createElement('img')
     for (e in img)
@@ -139,7 +156,6 @@ function renderCreate() {
     contactedit_children.forEach((e, i) => {
         e = document.createElement('div');
         e.classList.add(contactedit_children[i]);
-        console.log(e)
         edit_div.appendChild(e);
     });
 
@@ -202,5 +218,55 @@ function renderCreate() {
             increased++
         buttons.appendChild(button)
     });
+
+    //Lab 11 Task 7
+    document.querySelector('.cancel').addEventListener('click', (e) => {
+        cleanUpIndex();
+        renderIndex(contactList)
+        e.preventDefault();
+    })
+
+    //Lab 11 Task 8 & 9
+    document.querySelector('.save').addEventListener('click', (e) => {
+        const c_name = document.querySelector('#contactname')
+        const c_email = document.querySelector('#contactemail')
+        const c_phone = document.querySelector('#contactphone')
+        const c_address = document.querySelector('#contactaddress')
+        let new_object = {
+            name: c_name.value,
+            email: c_email.value,
+            phone: c_phone.value,
+            address: c_address.value,
+        }
+        contactList.push(new_object);
+        cleanUpIndex();
+        renderView(new_object)
+        e.preventDefault();
+    })
 };
+
+//Lab 11 Task 2
+contacts_home_id.addEventListener('click', (e) => {
+    cleanUpIndex();
+    renderIndex(contactList)
+    e.preventDefault();
+});
+
+//Lab 11 Task 3
+new_contacts_id.addEventListener('click', (e) => {
+    cleanUpIndex();
+    renderCreate();
+    e.preventDefault();
+})
+
+//Lab 11 Task 10
+window.addEventListener('load', (e) => {
+    cleanUpIndex();
+    renderIndex(contactList)
+})
+
+
+
+
+
 
